@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Urls List{% endblock %}
+{% block content %}
+<style>
+table, th, td {
+  border:1px solid black;
+}
+</style>
+
+<table style="width:100%">
+    <tr>
+        <th>ShortUrl</th>
+        <th>OriginalUrl</th>
+        <th>Created at</th>
+        <th>Clicks</th>
+    </tr>
+    {% if shortened_url %}
+        {% for short_url in shortened_url %}
+            <tr>
+                <th>
+                    <a href="{{ short_url.short_url }}" target="_blank">
+                        {{ request.build_absolute_uri }}{{ short_url.short_url }}
+                    </a>
+                </th>
+                <th>
+                    {{ short_url.original_url }}
+                </th>
+                <th>
+                    {{ short_url.created_at }}
+                </th>
+                <th>
+                    {{short_url.clicks }}
+                </th>
+            </tr>
+            
+        {% endfor %}
+    {% endif %}
+</table>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Encurtador de URL{% endblock %}
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Encurtar</button>
+    </form>
+
+    {% if short_url %}
+        <p>URL encurtada: 
+            <a href="{{ short_url.short_url }}" target="_blank">
+                {{ request.build_absolute_uri }}{{ short_url.short_url }}
+            </a>
+        </p>
+    {% endif %}
+{% endblock %}
