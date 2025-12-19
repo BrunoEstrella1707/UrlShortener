@@ -43,7 +43,7 @@ class ListUrlsView(ListView):
     model = ShortenedUrl
     template_name='urls_list.html'
     context_object_name='shortened_url'
+    login_url = '/accounts/login/'
 
     def get_queryset(self):
-        user_id = self.kwargs["pk"]        
-        return ShortenedUrl.objects.filter(user_id=user_id)
+        return ShortenedUrl.objects.filter(user_id=self.request.user.id)
