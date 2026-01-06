@@ -9,15 +9,16 @@
         <h1>URL Shortener</h1>
         <nav>
             <div>
+                {% if user.is_authenticated %}
+                    <strong>Olá, {{ user.username }}</strong>
+                {% endif %}
                 <a class="btn btn-secondary btn-sm" href="{% url 'create_short_url' %}" role="button">Home</a>
                 <a class="btn btn-secondary btn-sm" href="{% url 'list_short_url' %}" role="button">Listar urls</a>
-                {% if user.is_authenticated %}
-                    Olá, {{ user.username }}
-                    <a class="btn btn-secondary btn-sm" href="{% url 'logout' %}" role="button">Logout</a>
-                {% endif %}
                 {% if not user.is_authenticated %}
                     <a class="btn btn-secondary btn-sm" href="{% url 'register' %}" role="button">Cadastre-se</a>
                     <a class="btn btn-secondary btn-sm" href="{% url 'login' %}" role="button">Login</a>
+                {% else %}
+                    <a class="btn btn-secondary btn-sm" href="{% url 'logout' %}" role="button">Logout</a>
                 {% endif %}
             </div>
         </nav>
