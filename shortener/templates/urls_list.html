@@ -19,8 +19,8 @@ table, th, td {
         {% for short_url in shortened_url %}
             <tr>
                 <th>
-                    <a href="{{ short_url.short_url }}" target="_blank">
-                        {{ request.build_absolute_uri }}{{ short_url.short_url }}
+                    <a href="http://127.0.0.1:8000/shortener/{{ short_url.short_url }}" target="_blank">
+                        http://127.0.0.1:8000/shortener/{{ short_url.short_url }}
                     </a>
                 </th>
                 <th>

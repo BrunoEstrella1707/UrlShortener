@@ -21,7 +21,7 @@ class ShortenedUrl(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.short_url:
-            self.short_url = get_random_string(length=6, allowed_chars='0123456789abcdef')
+            self.short_url = get_random_string(length=6, allowed_chars='0123456789abcdefghijklmnopqrstuvxwyz')
         super().save(*args, **kwargs)
 
 
