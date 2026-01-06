@@ -10,10 +10,12 @@
     </form>
 
     {% if short_url %}
-        <p>URL encurtada: 
-            <a href="{{ short_url.short_url }}" target="_blank">
-                {{ request.build_absolute_uri }}{{ short_url.short_url }}
-            </a>
-        </p>
+        <div class="py-2">
+            <p>URL encurtada: 
+                <a href="{{ short_url.short_url }}" target="_blank">
+                    {{ request.build_absolute_uri }}{{ short_url.short_url }}
+                </a>
+            </p>
+        </div>
     {% endif %}
 {% endblock %}
