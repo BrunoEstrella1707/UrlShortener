@@ -10,6 +10,7 @@ class ShortenedUrl(models.Model):
     short_url = models.CharField(max_length=6, unique=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     clicks = models.IntegerField(default=0)
+    last_access = models.DateTimeField(null=True, blank=True)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,

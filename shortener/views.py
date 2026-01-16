@@ -3,6 +3,7 @@ from .models import ShortenedUrl
 from .forms import ShortUrlForm
 from django.views import View
 from django.views.generic import ListView
+from datetime import datetime
 
 
 class ShortUrlView(View):
@@ -33,7 +34,8 @@ class RedirectShortUrlView(View):
     def get(self, request, short_url):
         link = get_object_or_404(ShortenedUrl, short_url=short_url)
         link.clicks += 1
-        link.save(update_fields=['clicks'])
+        link.last_access = datetime.now()
+        link.save(update_fields=['clicks', 'last_access'])
         # ShortenedUrl.objects.filter(pk=link.pk).update(clicks=F('clicks') + 1)
         return redirect(link.original_url)
 
