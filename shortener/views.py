@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.views import View
 from django.views.generic import ListView
 from datetime import datetime
+from .services.events import publish_click_event
 
 
 class ShortUrlView(View):
@@ -34,10 +35,16 @@ class RedirectShortUrlView(View):
 
     def get(self, request, short_url):
         link = get_object_or_404(ShortenedUrl, short_url=short_url)
-        link.clicks += 1
-        link.last_access = timezone.now()
-        link.save(update_fields=['clicks', 'last_access'])
-        # ShortenedUrl.objects.filter(pk=link.pk).update(clicks=F('clicks') + 1)
+        
+        publish_click_event(
+            short_url=link.short_url,
+            url_id=link.id,
+            user_id=link.user_id,
+            ip=request.META.get("REMOTE_ADDR"),
+            user_agent=request.META.get("HTTP_USER_AGENT"),
+            timestamp=timezone.now()
+        )
+
         return redirect(link.original_url)
 
 
